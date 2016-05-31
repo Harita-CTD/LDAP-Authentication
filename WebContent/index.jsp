@@ -10,6 +10,7 @@
 	Hey guys ! <br/>
 	<% 
 	out.println("IP Address is : " + request.getRemoteAddr());
-	 %>
+	 %> <br/>
+	
 </body>
 </html>
