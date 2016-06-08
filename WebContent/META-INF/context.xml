@@ -1,0 +1,10 @@
+<Context>
+	<Realm className="org.apache.catalina.realm.LockOutRealm">
+		<Realm className="org.apache.catalina.realm.JNDIRealm"
+			connectionURL="ldap://bluepages.ibm.com:389" userSubtree="true"
+			userBase="O=IBM.COM" userSearch="(&amp;(emailAddress={0})(objectclass=person))"
+			roleBase="O=IBM.COM" roleName="cn" roleSubtree="true"
+			roleSearch="(uniqueMember={0})"			
+			commonRole="regularUser" />
+	</Realm>
+</Context>
