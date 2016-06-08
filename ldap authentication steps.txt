@@ -1,0 +1,108 @@
+
+
+1)put the context.xml in the webcontent meta inf folder
+
+2)Edit web.xml
+	
+3)login.html under Web contents 
+
+
+	change the name of the project in login.html
+
+		<form name="loginForm" action="/JSPTrial_1/j_security_check" method="post"> 
+
+
+-----------Web.xml:------------------------
+
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	<display-name>JSPTrial_1</display-name>
+	<!-- <welcome-file-list>  -->
+		<security-constraint>
+        <display-name>Restricted Resources</display-name>
+        <web-resource-collection>
+            <web-resource-name>All Resources</web-resource-name>
+            <description/>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>regularUser</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>Allowed Resources</display-name>
+        <web-resource-collection>
+            <web-resource-name>AngularJS and Bootstrap</web-resource-name>
+            <description/>
+            <url-pattern>/AngularJS/*</url-pattern>
+            <url-pattern>/Bootstrap/*</url-pattern>
+            <url-pattern>/focus.gif</url-pattern>
+        </web-resource-collection>
+    </security-constraint>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/login.html</form-login-page>
+            <form-error-page>/login.html?error=true</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <description/>
+        <role-name>regularUser</role-name>
+    </security-role>
+</web-app>
+
+
+
+
+
+
+------Context.xml--------
+
+<Context>
+	<Realm className="org.apache.catalina.realm.LockOutRealm">
+		<Realm className="org.apache.catalina.realm.JNDIRealm"
+			connectionURL="ldap://bluepages.ibm.com:389" userSubtree="true"
+			userBase="O=IBM.COM" userSearch="(&amp;(emailAddress={0})(objectclass=person))"
+			roleBase="O=IBM.COM" roleName="cn" roleSubtree="true"
+			roleSearch="(uniqueMember={0})"			
+			commonRole="regularUser" />
+	</Realm>
+</Context>
+
+
+
+
+
+------------login.html------------
+
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Login</title>
+		<style type="text/css">.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }</style>
+	</head>
+	<body>
+		<br>
+		
+							<label>Please enter your intranet ID and password:</label>
+							<form name="loginForm" action="/JSPTrial_1/j_security_check" method="post">
+								
+								<div>
+									<input name="j_username" type="text" placeholder="Username" autofocus required />
+								</div>
+								<div>
+									<input name="j_password" type="password" placeholder="Password" required />
+								</div>
+								<div>
+									<button type="submit" value="Login" title="Login">Login</button>
+								</div>
+							
+							</form>
+					
+	</body>
+</html>
+
